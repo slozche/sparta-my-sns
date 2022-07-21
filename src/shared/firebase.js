@@ -1,0 +1,26 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage'
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDm2TRmqVJ-f1_7nZY4pXhA978tTDc8TDk",
+  authDomain: "sparta-sns.firebaseapp.com",
+  projectId: "sparta-sns",
+  storageBucket: "sparta-sns.appspot.com",
+  messagingSenderId: "702792039701",
+  appId: "1:702792039701:web:701b8b910545e35b5e3d1c"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth()
+export const db = getFirestore(app)
+export const storage = getStorage(app)
+export default app
