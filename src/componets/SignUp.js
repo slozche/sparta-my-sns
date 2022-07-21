@@ -8,30 +8,28 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-    const id_ref = React.useRef(null)
-    const name_ref = React.useRef(null)
-    const pw_ref = React.useRef(null)
+    const [id, setId] = React.useState(null)
+    const [pw, setPw] = React.useState(null)
+    const [name, setName] = React.useState(null)
     const file_link_ref = React.useRef(null)
     const navigate = useNavigate()
 
-    const signupFB = () => {
+    const signupFB = async () => {
         //값이 전부 말짱해!! => 벨리데이션
         // 만약 공란 바로 리턴 폴스
-        const user = createUserWithEmailAndPassword(
+        const user = await createUserWithEmailAndPassword(
           auth,
-          id_ref.current.value,
-          pw_ref.current.value
+          id,
+          pw
         )
-        
-        console.log(user)
-        
-        // const user_doc = await addDoc(collection(db, 'users'), {
-        //   user_id: user.user.email,
-        //   name: name_ref.current?.value,
-        //   image_url: file_link_ref.current?.url
-        // })
+
+        const user_doc = await addDoc(collection(db, 'users'), {
+          user_id: user.user.email,
+          name: name,
+          image_url: file_link_ref.current?.url
+        })
     
-        // console.log(user_doc.id)
+        console.log(user_doc.id)
       }
 
       const uploadFB = async (e) => {
@@ -52,9 +50,9 @@ const SignUp = () => {
     return (
         <Container>
             <h1>회원가입 페이지</h1>
-            <TextField id="standard-basic" label="아이디" variant="standard" ref={id_ref}/>
-            <TextField id="standard-basic" label="비밀번호" variant="standard" ref={pw_ref}/>
-            <TextField id="standard-basic" label="이름" variant="standard" ref={name_ref}/>
+            <TextField id="standard-basic" label="아이디" variant="standard" onChange={e => setId(e.target.value)}/>
+            <TextField id="standard-basic" label="비밀번호" variant="standard" onChange={e => setPw(e.target.value)}/>
+            <TextField id="standard-basic" label="이름" variant="standard" onChange={e => setName(e.target.value)}/>
             <Button variant="contained" component="label">
                 사진업로드
                 <input hidden accept="image/*" multiple type="file" ref={file_link_ref} onChange={uploadFB}/>

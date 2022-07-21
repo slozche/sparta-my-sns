@@ -8,6 +8,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { IconButton } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HomeIcon from '@mui/icons-material/Home';
 import { styled } from 'styled-components';
 
 import Main from './componets/Main';
@@ -37,21 +38,18 @@ function App() {
   return (
     <div className="App">
       <ul>
+          
+          <IconButton aria-label="signup" onClick={() => navigate('/')}>
+            <HomeIcon />
+          </IconButton>
           {is_login ? 
           <IconButton aria-label="login" onClick={() => signOut(auth)}>
           로그아웃
         </IconButton> :
         <IconButton aria-label="login" onClick={() => navigate('/login')}>
-        로그인
+            <LoginIcon />
       </IconButton>
           }
-          <IconButton aria-label="login" onClick={() => navigate('/login')}>
-            <LoginIcon />
-          </IconButton>
-          <IconButton aria-label="signup" onClick={() => navigate('/signup')}>
-            <AccountCircleIcon />
-          </IconButton>
-        
       </ul>
         
         <Routes>
